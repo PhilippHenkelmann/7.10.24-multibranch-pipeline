@@ -1,0 +1,35 @@
+pipeline {
+    agent any 
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo "Checkout from git is successful"
+            }
+        }
+
+        stage('Install dependencies') {
+            steps {
+                echo 'Install dependencies successful'
+            }
+        }
+
+        stage('Run app.py') {
+            steps {
+                sh 'python3 app.py'
+            }
+        }
+
+        stage('Run unitTest') {
+            steps {
+                sh 'python3 -m unittest discover'
+            }
+        }
+
+        stage('deploy code') {
+            steps {
+                echo "Deploy to ECR from master branch"
+            }
+        }
+    }
+}
