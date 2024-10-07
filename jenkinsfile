@@ -1,0 +1,37 @@
+pipeline {
+    agent any 
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm  // Falls du den echten Checkout möchtest
+                echo "Checkout from git is successfull"
+            }
+        }
+
+        stage('Install dependencies') {
+            steps {
+                echo 'Install dependencies successfull'
+            }
+        }
+
+        stage('Run app.py') {
+            steps {
+                sh 'python3 app.py'  // Achte darauf, dass python3 auf deinem Agent verfügbar ist
+            }
+        }
+
+        stage('Run unitTest') {
+            steps {
+                sh 'python3 -m unittest discover'  // Führt Unit Tests aus
+            }
+        }
+
+        stage('deploy code') {
+            steps {
+                echo "deploy to ECR from feature branch"
+            }
+        }
+    }
+}
